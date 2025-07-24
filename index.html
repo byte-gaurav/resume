@@ -1,25 +1,111 @@
 <!DOCTYPE html>
-<html lang="en" style="width: 100%; height: 100%;">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gaurav's Resume</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      height: 100%;
-      width: 100%;
+      font-family: sans-serif;
+      background-color: #f0f0f0;
     }
-    .pdf-viewer {
-      height: 100%;
+
+    header {
+      background-color: #282c34;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      background-color: #61dafb;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #4ccbe0;
+    }
+
+    .viewer {
+      height: calc(100vh - 80px);
       width: 100%;
       border: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+    }
+
+    .modal-content {
+      margin: 2% auto;
+      display: block;
+      width: 90%;
+      height: 90%;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <!-- Using iframe to directly embed the PDF -->
-  <iframe class="pdf-viewer"
-    src="https://raw.githubusercontent.com/byte-gaurav/resume/master/Gaurav-Resume.pdf">
-  </iframe>
+
+  <header>
+    <h1>Gaurav's Resume</h1>
+    <div>
+      <button onclick="downloadResume()">Download</button>
+      <button onclick="openModal()">Fullscreen View</button>
+    </div>
+  </header>
+
+  <embed class="viewer" src="https://byte-gaurav.github.io/resume/Gaurav-Resume.pdf" type="application/pdf" />
+
+  <div id="resumeModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <embed class="modal-content" src="https://byte-gaurav.github.io/resume/Gaurav-Resume.pdf" type="application/pdf" />
+  </div>
+
+  <script>
+    function downloadResume() {
+      window.open("https://byte-gaurav.github.io/resume/Gaurav-Resume.pdf", "_blank");
+    }
+
+    function openModal() {
+      document.getElementById("resumeModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("resumeModal").style.display = "none";
+    }
+
+    // Optional: Close modal on ESC
+    window.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+
 </body>
 </html>
